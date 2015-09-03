@@ -7,7 +7,7 @@ gems:
 # Site settings
 title: "Kenji Yamamoto"
 description: > # this means to ignore newlines until "email:"
-   front end developer & web user interface designer
+   front end developer & web user interface designer.
 
 email: blog@kenjiyamamoto.com
 #blog logo
