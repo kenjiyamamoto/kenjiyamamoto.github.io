@@ -1,0 +1,26 @@
+{
+  "name": "kenjiyamamoto.com",
+  "version": "1.0.0",
+  "description": "kenji yamamoto personal website",
+  "main": "index.js",
+  "scripts": {
+    "babel": "babel --presets es2015 js/main.js -o build/main.bundle.js",
+    "start": "http-server"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kenjiyamamoto/kenjiyamamoto.git"
+  },
+  "author": "Kenji Yamamoto <kenjiys@gmail.com> (http://kenjiyamamoto.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kenjiyamamoto/kenjiyamamoto/issues"
+  },
+  "homepage": "https://github.com/kenjiyamamoto/kenjiyamamoto#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "http-server": "^0.11.1"
+  }
+}
