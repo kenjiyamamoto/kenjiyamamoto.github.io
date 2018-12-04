@@ -56,16 +56,16 @@ section.social a:hover svg {
 }
 
 /* TABLET */
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 800px) {
     section.heading {
         width: 600px;
     }
 }
 
 /* MOBILE */
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 500px) {
     section.heading {
-        width: 300px;
+        width: auto;
     }
     h1 {
         font-size: 45px;
