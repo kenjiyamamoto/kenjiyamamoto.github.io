@@ -35,8 +35,8 @@ h1 span {
 }
 
 h2 {
-    color: #333;
-    font-size: 25px;
+    color: #666;
+    font-size: 20px;
     font-weight: 300;
 }
 
@@ -48,8 +48,11 @@ section.social a {
     margin-top: 15px;
 }
 section.social svg {
+    -webkit-transition: fill 2s, -webkit-transform 2s;
+    transition: fill 2s, transform 2s;
     fill: #333;
-    height: 20px;
+    height: 30px;
+    margin-right: 10px;
 }
 section.social a:hover svg {
     fill: #FFF;
