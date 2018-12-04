@@ -17,7 +17,7 @@ section.heading {
     display: flex;
     flex-flow: column;
     margin: 0 auto;
-    width: 1000px;
+    /* width: 1000px; */
 }
 h1, h2 {
     margin: 0;
