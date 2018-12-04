@@ -56,7 +56,7 @@ section.social a:hover svg {
 }
 
 /* TABLET */
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) {
     section.heading {
         width: 600px;
     }
