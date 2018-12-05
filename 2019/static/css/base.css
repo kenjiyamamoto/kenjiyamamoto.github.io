@@ -28,7 +28,7 @@ h1 {
     font-weight: 100;
     letter-spacing: -1px;
     line-height: 50px;
-    width: 250px;
+    width: 350px;
 }
 h1 span {
     font-weight: 300;
@@ -51,7 +51,7 @@ section.social svg {
     -webkit-transition: fill 2s, -webkit-transform 2s;
     transition: fill 2s, transform 2s;
     fill: #333;
-    height: 30px;
+    height: 35px;
     margin-right: 10px;
 }
 section.social a:hover svg {
@@ -73,6 +73,7 @@ section.social a:hover svg {
     h1 {
         font-size: 45px;
         line-height: 40px;
+        width: 300px
     }
     h2 {
         position: absolute;
