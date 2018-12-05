@@ -17,6 +17,7 @@ section.heading {
     display: flex;
     flex-flow: column;
     margin: 0 auto;
+    position: relative;
     width: 900px;
 }
 h1, h2 {
@@ -56,6 +57,23 @@ section.social svg {
 }
 section.social a:hover svg {
     fill: #FFF;
+}
+
+section#instafeed {
+    position: absolute;
+    top: 20px;
+    right: 0;
+    width: 280px;
+}
+section#instafeed img {
+    -webkit-transition: all 200ms ease-in;
+    transition: all 200ms ease-in;
+    filter: grayscale(100%) brightness(35%);
+    margin: 3px;
+    width: 50px;
+}
+section#instafeed img:hover {
+    filter: grayscale(10%) brightness(100%);
 }
 
 /* TABLET */
