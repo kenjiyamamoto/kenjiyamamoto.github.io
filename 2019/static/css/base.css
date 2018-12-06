@@ -64,7 +64,31 @@ section#instafeed {
     top: 20px;
     right: 0;
     width: 280px;
+    display: none;
 }
+section#instafeed.show {
+    display: block;
+}
+section#instafeed:after {
+    content: 'X';
+    color: #FFF;
+    cursor: pointer;
+    position: absolute;
+    top: -15px;
+    right: -10px;
+    border: 1px solid #333;
+    border-radius: 50px;
+    padding: 5px;
+    font-size: 12px;
+    width: 25px;
+    text-align: center;
+    height: 25px;
+    background-color: #000;
+}
+section#instafeed:hover:after {
+    background-color: #333;
+}
+
 section#instafeed img {
     -webkit-transition: all 200ms ease-in;
     transition: all 200ms ease-in;
