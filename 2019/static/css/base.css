@@ -105,6 +105,16 @@ section#instafeed img:hover {
     section.heading {
         width: 600px;
     }
+    section#instafeed {
+        background-color: #000;
+        top: -50%;
+        right: auto;
+        width: 530px;
+    }
+
+    section#instafeed img {
+        width: 100px;
+    }
 }
 
 /* MOBILE */
@@ -117,11 +127,13 @@ section#instafeed img:hover {
         line-height: 40px;
         width: 300px
     }
-    h2 {
-        position: absolute;
-        top: 10px;
-        left: 0;
+    section#instafeed {
+        background-color: #000;
+        top: 5px;
+        right: 0;
         width: 100%;
-        text-align: center;
+    }
+    section#instafeed img {
+        width: 50px;
     }
 }
