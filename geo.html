@@ -19,23 +19,30 @@
         var city = document.querySelector(".city");
             var ip = document.querySelector(".ip");
 
-            function jsonp(url, callback) {
-                var callbackName = 'globoapi_geo_callback';
-                window[callbackName] = function (data) {
-                    delete window[callbackName];
-                    document.body.removeChild(script);
-                    callback(data);
-                };
+            function jsonp(url) {
+                return new Promise(function (resolve, reject) {
+                    let script = document.createElement('script')
+                    const name = "globoapi_geo_callback";// + Math.round(100000 * Math.random());
+                    //url formatting
+                    if (url.match(/\?/)) url += "&callback=" + name
+                    else url += "?callback=" + name
+                    script.src = url;
 
-                var script = document.createElement("script");
-                script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + callbackName;
-                document.body.appendChild(script);
+                    window[name] = function (data) {
+                        resolve(data);
+                        document.body.removeChild(script);
+                        delete window[name];
+                    }
+                    document.body.appendChild(script);
+                });
             }
 
-            jsonp("https://api.globo.com/geo/?" + Math.round(100000 * Math.random()), function (data) {
-                foo = data;
-                city.innerHTML = data.city.name;
-                ip.innerHTML = data.ip;
+            var data = jsonp("http://api.globo.com/geo/");
+
+            data.then((res) => {
+                foo = res;
+                city.innerHTML = res.city.name;
+                ip.innerHTML = res.ip;
             });
 
     </script>
