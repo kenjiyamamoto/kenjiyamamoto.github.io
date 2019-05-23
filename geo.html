@@ -20,7 +20,7 @@
             var ip = document.querySelector(".ip");
 
             function jsonp(url, callback) {
-                var callbackName = 'globoapi_geo_callback' + Math.round(100000 * Math.random());
+                var callbackName = 'globoapi_geo_callback';
                 window[callbackName] = function (data) {
                     delete window[callbackName];
                     document.body.removeChild(script);
@@ -28,12 +28,11 @@
                 };
 
                 var script = document.createElement("script");
-                script.src =
-                    url + (url.indexOf("?") >= 0 ? "&" : "?") + "callback=" + callbackName;
+                script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + callbackName;
                 document.body.appendChild(script);
             }
 
-            jsonp("https://api.globo.com/geo/", function (data) {
+            jsonp("https://api.globo.com/geo/?" + Math.round(100000 * Math.random()), function (data) {
                 foo = data;
                 city.innerHTML = data.city.name;
                 ip.innerHTML = data.ip;
