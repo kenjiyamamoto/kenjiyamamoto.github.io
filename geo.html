@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Get Geo Location</title>
+</head>
+<body>
+    <div>
+        <span>Cidade:</span>
+        <h1 class="city">Cidade: </h1>
+
+        <span>IP:</span>
+        <h1 class="ip">IP: </h1>
+    </div>
+
+    <script>
+        var city = document.querySelector(".city");
+            var ip = document.querySelector(".ip");
+
+            function jsonp(url, callback) {
+                var callbackName = "globoapi_geo_callback";
+
+                window[callbackName] = function (data) {
+                    delete window[callbackName];
+                    document.body.removeChild(script);
+                    callback(data);
+                };
+
+                var script = document.createElement("script");
+                script.src =
+                    url + (url.indexOf("?") >= 0 ? "&" : "?") + "callback=" + callbackName;
+                document.body.appendChild(script);
+            }
+
+            jsonp("https://api.globo.com/geo/", function (data) {
+                foo = data;
+                city.innerHTML = data.city.name;
+                ip.innerHTML = data.ip;
+            });
+
+    </script>
+</body>
+</html>
