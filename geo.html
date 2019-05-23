@@ -20,8 +20,7 @@
             var ip = document.querySelector(".ip");
 
             function jsonp(url, callback) {
-                var callbackName = "globoapi_geo_callback";
-
+                var callbackName = 'globoapi_geo_callback' + Math.round(100000 * Math.random());
                 window[callbackName] = function (data) {
                     delete window[callbackName];
                     document.body.removeChild(script);
