@@ -12,257 +12,94 @@
 <meta property="og:url" content="https://kenjiyamamoto.com/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0b0f14; --bg-soft:#111722; --card:#141c29; --border:#22304433;
-    --text:#e8edf4; --muted:#94a3b8; --accent:#38bdf8; --accent-2:#818cf8;
-    --chip:#1b2534; --shadow:0 10px 30px rgba(0,0,0,.35);
+    --bg:#0b0f14; --card:#141c29; --border:#22304433;
+    --text:#e8edf4; --muted:#94a3b8; --accent:#38bdf8;
+    --shadow:0 10px 30px rgba(0,0,0,.35);
     --grad:linear-gradient(135deg,#38bdf8,#818cf8);
   }
   html[data-theme="light"]{
-    --bg:#f8fafc; --bg-soft:#eef2f7; --card:#ffffff; --border:#0f172a14;
-    --text:#0f172a; --muted:#55657a; --accent:#0284c7; --accent-2:#6366f1;
-    --chip:#eaeff6; --shadow:0 10px 30px rgba(15,23,42,.08);
+    --bg:#f8fafc; --card:#ffffff; --border:#0f172a14;
+    --text:#0f172a; --muted:#55657a; --accent:#0284c7;
+    --shadow:0 10px 30px rgba(15,23,42,.08);
     --grad:linear-gradient(135deg,#0284c7,#6366f1);
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
   body{
     background:var(--bg); color:var(--text);
     font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
     line-height:1.6; transition:background .3s,color .3s;
+    min-height:100vh; min-height:100dvh;
+    display:flex; flex-direction:column;
+    position:relative; overflow-x:hidden;
   }
-  .wrap{max-width:960px;margin:0 auto;padding:0 24px}
-  /* NAV */
-  nav{
-    position:sticky;top:0;z-index:10;backdrop-filter:blur(12px);
-    background:color-mix(in srgb,var(--bg) 80%,transparent);
-    border-bottom:1px solid var(--border);
-  }
-  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;max-width:960px;margin:0 auto}
-  .logo{font-weight:800;letter-spacing:-.5px;font-size:1.05rem;text-decoration:none;color:var(--text)}
-  .logo span{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-  .nav-links{display:flex;gap:20px;align-items:center}
-  .nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500}
-  .nav-links a:hover{color:var(--text)}
-  #themeToggle{
-    cursor:pointer;border:1px solid var(--border);background:var(--chip);color:var(--text);
-    border-radius:999px;width:36px;height:36px;font-size:1rem;display:grid;place-items:center;
-  }
-  /* HERO */
-  header{padding:96px 0 72px;text-align:left;position:relative;overflow:hidden}
-  .hero-glow{
-    position:absolute;inset:auto -20% -60% -20%;height:70%;
-    background:radial-gradient(ellipse at center,color-mix(in srgb,var(--accent) 18%,transparent),transparent 70%);
+  .glow{
+    position:fixed; inset:auto -30% -50% -30%; height:65%;
+    background:radial-gradient(ellipse at center,color-mix(in srgb,var(--accent) 16%,transparent),transparent 70%);
     pointer-events:none;
   }
-  .kicker{font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
-  h1{font-size:clamp(2.4rem,6vw,3.8rem);font-weight:800;letter-spacing:-1.5px;line-height:1.1}
-  .headline{font-size:clamp(1.05rem,2.4vw,1.3rem);color:var(--muted);margin:18px 0 8px;max-width:640px}
-  .location{color:var(--muted);font-size:.95rem;margin-bottom:28px}
-  .cta{display:flex;gap:12px;flex-wrap:wrap}
+  #themeToggle{
+    position:fixed; top:20px; right:20px; z-index:10;
+    cursor:pointer; border:1px solid var(--border); background:var(--card); color:var(--text);
+    border-radius:999px; width:40px; height:40px; font-size:1.05rem;
+    display:grid; place-items:center; box-shadow:var(--shadow);
+  }
+  main{
+    flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:48px 24px;
+  }
+  .kicker{
+    font-family:'JetBrains Mono',monospace; color:var(--accent);
+    font-size:.82rem; letter-spacing:.14em; text-transform:uppercase; margin-bottom:20px;
+  }
+  h1{font-size:clamp(2.6rem,8vw,4.2rem); font-weight:800; letter-spacing:-2px; line-height:1.05}
+  h1 span{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .headline{
+    font-size:clamp(1rem,2.6vw,1.25rem); color:var(--muted);
+    margin:20px auto 10px; max-width:560px;
+  }
+  .location{color:var(--muted); font-size:.95rem; margin-bottom:36px}
+  .cta{display:flex; gap:14px; flex-wrap:wrap; justify-content:center}
   .btn{
-    display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:600;font-size:.92rem;
-    padding:11px 20px;border-radius:10px;border:1px solid var(--border);color:var(--text);
-    background:var(--card);transition:transform .15s,box-shadow .15s;
+    display:inline-flex; align-items:center; gap:9px; text-decoration:none; font-weight:600; font-size:.95rem;
+    padding:13px 26px; border-radius:12px; border:1px solid var(--border); color:var(--text);
+    background:var(--card); transition:transform .15s,box-shadow .15s;
   }
-  .btn:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
-  .btn.primary{background:var(--grad);color:#fff;border:none}
-  /* STATS */
-  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:8px 0 0}
-  .stat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px}
-  .stat b{display:block;font-size:1.7rem;font-weight:800;letter-spacing:-.5px;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-  .stat span{color:var(--muted);font-size:.85rem}
-  /* SECTIONS */
-  section{padding:56px 0}
-  h2{font-size:1.5rem;font-weight:700;letter-spacing:-.5px;margin-bottom:24px;display:flex;align-items:center;gap:12px}
-  h2::after{content:"";flex:1;height:1px;background:var(--border)}
-  .about p{color:var(--muted);font-size:1.05rem;max-width:720px}
-  .about p+p{margin-top:14px}
-  /* TIMELINE */
-  .job{
-    background:var(--card);border:1px solid var(--border);border-radius:14px;
-    padding:24px;margin-bottom:16px;transition:transform .15s,box-shadow .15s;
-  }
-  .job:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
-  .job-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px}
-  .job h3{font-size:1.08rem;font-weight:700}
-  .job .company{color:var(--accent);font-weight:600;font-size:.95rem}
-  .job .period{font-family:'JetBrains Mono',monospace;color:var(--muted);font-size:.8rem;white-space:nowrap}
-  .job p{color:var(--muted);font-size:.94rem;margin-top:8px}
-  .job ul{margin:10px 0 0 18px;color:var(--muted);font-size:.94rem}
-  .job li{margin-bottom:6px}
-  /* SKILLS */
-  .chips{display:flex;flex-wrap:wrap;gap:10px}
-  .chip{background:var(--chip);border:1px solid var(--border);color:var(--text);border-radius:999px;padding:8px 16px;font-size:.87rem;font-weight:500}
-  /* EDUCATION + CONTACT */
-  .edu{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px}
-  .edu b{font-size:1.05rem}
-  .edu span{color:var(--muted);display:block;font-size:.92rem}
-  footer{padding:64px 0 48px;text-align:center;border-top:1px solid var(--border);margin-top:40px}
-  footer h2{justify-content:center}
-  footer h2::after{display:none}
-  footer p{color:var(--muted);max-width:520px;margin:0 auto 24px}
-  .foot-note{font-size:.8rem;color:var(--muted);margin-top:40px}
-  @media(max-width:600px){
-    header{padding:64px 0 48px}
-    .nav-links a:not(#themeToggle){display:none}
-  }
+  .btn:hover{transform:translateY(-2px); box-shadow:var(--shadow)}
+  .btn.primary{background:var(--grad); color:#fff; border:none}
+  .btn svg{width:18px; height:18px; fill:currentColor}
+  footer{text-align:center; padding:28px 24px; color:var(--muted); font-size:.8rem}
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-inner">
-    <a class="logo" href="#top">kenji<span>yamamoto</span>.com</a>
-    <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#experience">Experience</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
-      <button id="themeToggle" aria-label="Toggle dark/light theme">◐</button>
-    </div>
+<div class="glow"></div>
+<button id="themeToggle" aria-label="Toggle dark/light theme">◐</button>
+
+<main>
+  <div class="kicker">Engineering Leadership · AI · Fintech</div>
+  <h1>Kenji <span>Yamamoto</span></h1>
+  <p class="headline">Head of Technology — AI, Fintech &amp; Platform Engineering. Leading scalable engineering teams, product innovation and technology strategy.</p>
+  <p class="location">Rio de Janeiro, Brazil</p>
+  <div class="cta">
+    <a class="btn primary" href="https://www.linkedin.com/in/kenjiyamamoto/" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+      LinkedIn
+    </a>
+    <a class="btn" href="https://github.com/kenjiyamamoto" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      GitHub
+    </a>
+    <a class="btn" href="https://twitter.com/kenjiyamamoto" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817-5.966 6.817h-3.31l7.73-8.835-8.156-10.665h6.826l4.713 6.231zm-1.161 17.52h1.833l-11.83-15.644h-1.967z"/></svg>
+      X / Twitter
+    </a>
   </div>
-</nav>
+</main>
 
-<header id="top">
-  <div class="hero-glow"></div>
-  <div class="wrap">
-    <div class="kicker">Engineering Leadership · AI · Fintech</div>
-    <h1>Kenji Yamamoto</h1>
-    <p class="headline">Head of Technology — AI, Fintech &amp; Platform Engineering. Leading scalable engineering teams, product innovation and technology strategy.</p>
-    <p class="location">📍 Rio de Janeiro, Brazil</p>
-    <div class="cta">
-      <a class="btn primary" href="https://www.linkedin.com/in/kenjiyamamoto/" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="btn" href="https://github.com/kenjiyamamoto" target="_blank" rel="noopener">GitHub</a>
-      <a class="btn" href="https://twitter.com/kenjiyamamoto" target="_blank" rel="noopener">X / Twitter</a>
-    </div>
-  </div>
-</header>
-
-<div class="wrap">
-  <div class="stats">
-    <div class="stat"><b>25+</b><span>years in technology</span></div>
-    <div class="stat"><b>1.5M+</b><span>daily active users served</span></div>
-    <div class="stat"><b>99.98%</b><span>platform uptime</span></div>
-    <div class="stat"><b>−30%</b><span>infrastructure costs</span></div>
-    <div class="stat"><b>−70%</b><span>support costs via AI</span></div>
-  </div>
-</div>
-
-<section id="about" class="about">
-  <div class="wrap">
-    <h2>About</h2>
-    <p>I'm a technology leader with over two decades of experience spanning software engineering, data engineering and engineering management. Today I lead global engineering organizations building high-scale messaging and communication platforms in fintech — driving product delivery, platform reliability and AI-driven innovation for systems serving millions of users.</p>
-    <p>My path went from frontend development in the late 90s, through more than 15 years at Globo — South America's largest media group — working on products like Cartola FC and globoesporte.com, to leading engineering at PicPay, one of Brazil's largest fintechs, through its IPO on Nasdaq. I care about clarity, engineering excellence, and building teams that turn technology into real customer value.</p>
-  </div>
-</section>
-
-<section id="experience">
-  <div class="wrap">
-    <h2>Experience</h2>
-
-    <div class="job">
-      <div class="job-head">
-        <div><h3>Head of Technology</h3><span class="company">PicPay</span></div>
-        <span class="period">Jul 2024 — Present</span>
-      </div>
-      <ul>
-        <li>Lead a global engineering organization of 25+ people (engineers, PMs, QA, SREs) across 3 squads, supporting 1.5M+ daily active users.</li>
-        <li>Architected and delivered a new in-house messaging platform with a zero-downtime migration on AWS, cutting annual infrastructure costs by 30%.</li>
-        <li>Maintained 99.98% uptime across critical messaging and communication services.</li>
-        <li>Led AI-driven customer service initiatives, reducing support costs by 70%+ and halving first-response times.</li>
-      </ul>
-    </div>
-
-    <div class="job">
-      <div class="job-head">
-        <div><h3>Tech Manager</h3><span class="company">PicPay</span></div>
-        <span class="period">Jan 2022 — Jul 2024</span>
-      </div>
-      <ul>
-        <li>Managed cross-functional teams responsible for APIs, backend services and platform architecture for high-volume messaging systems.</li>
-        <li>Collaborated with global teams across Brazil and China on platform scalability and roadmap execution.</li>
-        <li>Mentored engineers and drove agile delivery for products supporting millions of users.</li>
-      </ul>
-    </div>
-
-    <div class="job">
-      <div class="job-head">
-        <div><h3>Head of Growth — Publishing &amp; Video Products</h3><span class="company">Globo</span></div>
-        <span class="period">Aug 2021 — Dec 2021</span>
-      </div>
-      <p>Drove data-informed growth for publishing and video products, optimizing ways of working and orchestrating cross-team initiatives.</p>
-    </div>
-
-    <div class="job">
-      <div class="job-head">
-        <div><h3>Data Engineer Specialist · Cartola FC</h3><span class="company">Globo</span></div>
-        <span class="period">2018 — 2021</span>
-      </div>
-      <p>Built data architectures for extraction and transformation powering predictive modeling — including team-optimization features for Cartola FC, Brazil's biggest fantasy football game.</p>
-    </div>
-
-    <div class="job">
-      <div class="job-head">
-        <div><h3>Software Engineering Specialist</h3><span class="company">Globo</span></div>
-        <span class="period">2006 — 2018</span>
-      </div>
-      <p>Nearly 12 years building web products at scale for South America's largest media group, including globoesporte.com and the Rio 2016 Olympics coverage.</p>
-    </div>
-
-    <div class="job">
-      <div class="job-head">
-        <div><h3>Early Career — Frontend &amp; Web Development</h3><span class="company">Advice NetBusiness · Americanas.com · Jornal O Dia · Domanni</span></div>
-        <span class="period">1998 — 2006</span>
-      </div>
-      <p>Frontend, Flash and UI development across e-commerce, media and agencies.</p>
-    </div>
-  </div>
-</section>
-
-<section id="skills">
-  <div class="wrap">
-    <h2>Skills</h2>
-    <div class="chips">
-      <span class="chip">Engineering Leadership</span>
-      <span class="chip">AI &amp; Machine Learning</span>
-      <span class="chip">Platform Engineering</span>
-      <span class="chip">Distributed Systems</span>
-      <span class="chip">AWS Cloud Architecture</span>
-      <span class="chip">Fintech</span>
-      <span class="chip">Messaging Systems</span>
-      <span class="chip">Data Engineering</span>
-      <span class="chip">Cross-functional Team Leadership</span>
-      <span class="chip">Technology Strategy</span>
-      <span class="chip">Agile Delivery</span>
-      <span class="chip">Global Teams</span>
-    </div>
-  </div>
-</section>
-
-<section id="education">
-  <div class="wrap">
-    <h2>Education</h2>
-    <div class="edu">
-      <b>Pontifícia Universidade Católica do Rio de Janeiro (PUC-Rio)</b>
-      <span>Rio de Janeiro, Brazil</span>
-    </div>
-  </div>
-</section>
-
-<footer id="contact">
-  <div class="wrap">
-    <h2>Let's talk</h2>
-    <p>Open to conversations about engineering leadership, AI, fintech and building high-scale platforms.</p>
-    <div class="cta" style="justify-content:center">
-      <a class="btn primary" href="https://www.linkedin.com/in/kenjiyamamoto/" target="_blank" rel="noopener">Connect on LinkedIn</a>
-      <a class="btn" href="https://github.com/kenjiyamamoto" target="_blank" rel="noopener">GitHub</a>
-    </div>
-    <p class="foot-note">© <span id="year"></span> Kenji Yamamoto · kenjiyamamoto.com</p>
-  </div>
-</footer>
+<footer>© <span id="year"></span> Kenji Yamamoto · kenjiyamamoto.com</footer>
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
