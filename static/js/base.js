@@ -5,17 +5,28 @@ var feed = new Instafeed({
     sortBy: 'most-liked',
     limit: 10,
     clientId: '874257cd75be4d578c56c1ade1330740',
-    accessToken: '7608.874257c.e5761d42f4434531ae0057113d6c41fe'
+    accessToken: '7608.874257c.e5761d42f4434531ae0057113d6c41fe',
+    error: function (message) {
+        console.error("Instafeed failed to load:", message);
+    }
 });
 
 let instagram = document.getElementById("instagram");
 let instagramContent = document.getElementById("instafeed");
 
-instagram.addEventListener("click", startInstagram, false);
+if (instagram && instagramContent) {
+    instagram.addEventListener("click", startInstagram, false);
+} else {
+    console.warn("Instagram elements not found; feed disabled.");
+}
 
 function startInstagram(e) {
     if (instagramContent.children.length == 0 ) {
-        feed.run();
+        try {
+            feed.run();
+        } catch (err) {
+            console.error("Unable to start Instagram feed:", err);
+        }
         instagramContent.className = "animated bounceIn delay-1s show";
 
         instagramContent.addEventListener("click", function(e){

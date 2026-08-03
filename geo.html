@@ -23,8 +23,15 @@
             const ip = document.querySelector(".ip");
 
             site.jsonp("http://api.globo.com/geo/", "globoapi_geo_callback").then((res) => {
+                if (!res || !res.city) {
+                    throw new Error("Unexpected geo response: " + JSON.stringify(res));
+                }
                 city.innerHTML = res.city.name;
                 ip.innerHTML = res.ip;
+            }).catch((err) => {
+                console.error("Unable to load geo location:", err);
+                city.innerHTML = "Cidade: indisponível";
+                ip.innerHTML = "IP: indisponível";
             });
         });
     </script>

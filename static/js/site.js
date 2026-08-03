@@ -32,15 +32,24 @@ window.site = (function () {
 
     /* Loads a JSONP endpoint and resolves with the payload it calls back with. */
     function jsonp(url, callbackName) {
-        return new Promise(function (resolve) {
+        return new Promise(function (resolve, reject) {
             const name = callbackName || 'jsonp_callback_' + Math.round(100000 * Math.random());
             const script = document.createElement('script');
             script.src = url + (url.indexOf('?') === -1 ? '?' : '&') + 'callback=' + name;
 
-            window[name] = function (data) {
-                resolve(data);
-                document.body.removeChild(script);
+            function cleanup() {
+                if (script.parentNode) document.body.removeChild(script);
                 delete window[name];
+            }
+
+            window[name] = function (data) {
+                cleanup();
+                resolve(data);
+            };
+
+            script.onerror = function () {
+                cleanup();
+                reject(new Error('Failed to load JSONP resource from ' + url));
             };
 
             document.body.appendChild(script);
