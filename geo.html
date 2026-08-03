@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Get Geo Location</title>
+    <link rel="stylesheet" href="static/css/shared.css">
+    <script src="static/js/site.js" defer></script>
 </head>
 <body>
     <div>
@@ -16,38 +18,11 @@
     </div>
 
     <script>
-        var city = document.querySelector(".city");
-            var ip = document.querySelector(".ip");
+        document.addEventListener("DOMContentLoaded", () => {
+            const city = document.querySelector(".city");
+            const ip = document.querySelector(".ip");
 
-            function jsonp(url) {
-                return new Promise(function (resolve, reject) {
-                    let script = document.createElement('script')
-                    const name = "globoapi_geo_callback";// + Math.round(100000 * Math.random());
-                    //url formatting
-                    if (url.match(/\?/)) url += "&callback=" + name
-                    else url += "?callback=" + name
-                    script.src = url;
-
-                    function cleanup() {
-                        if (script.parentNode) document.body.removeChild(script);
-                        delete window[name];
-                    }
-
-                    window[name] = function (data) {
-                        cleanup();
-                        resolve(data);
-                    }
-                    script.onerror = function () {
-                        cleanup();
-                        reject(new Error("Failed to load geo data from " + url));
-                    }
-                    document.body.appendChild(script);
-                });
-            }
-
-            var data = jsonp("http://api.globo.com/geo/");
-
-            data.then((res) => {
+            site.jsonp("http://api.globo.com/geo/", "globoapi_geo_callback").then((res) => {
                 if (!res || !res.city) {
                     throw new Error("Unexpected geo response: " + JSON.stringify(res));
                 }
@@ -58,7 +33,7 @@
                 city.innerHTML = "Cidade: indisponível";
                 ip.innerHTML = "IP: indisponível";
             });
-
+        });
     </script>
 </body>
 </html>
