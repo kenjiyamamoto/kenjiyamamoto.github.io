@@ -28,10 +28,18 @@
                     else url += "?callback=" + name
                     script.src = url;
 
-                    window[name] = function (data) {
-                        resolve(data);
-                        document.body.removeChild(script);
+                    function cleanup() {
+                        if (script.parentNode) document.body.removeChild(script);
                         delete window[name];
+                    }
+
+                    window[name] = function (data) {
+                        cleanup();
+                        resolve(data);
+                    }
+                    script.onerror = function () {
+                        cleanup();
+                        reject(new Error("Failed to load geo data from " + url));
                     }
                     document.body.appendChild(script);
                 });
@@ -40,9 +48,15 @@
             var data = jsonp("http://api.globo.com/geo/");
 
             data.then((res) => {
-                foo = res;
+                if (!res || !res.city) {
+                    throw new Error("Unexpected geo response: " + JSON.stringify(res));
+                }
                 city.innerHTML = res.city.name;
                 ip.innerHTML = res.ip;
+            }).catch((err) => {
+                console.error("Unable to load geo location:", err);
+                city.innerHTML = "Cidade: indisponível";
+                ip.innerHTML = "IP: indisponível";
             });
 
     </script>
