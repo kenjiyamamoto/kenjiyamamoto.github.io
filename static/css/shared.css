@@ -1,0 +1,35 @@
+/* Shared rules used across the pages of the site. */
+
+/* Reset */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+html,
+body {
+    margin: 0;
+    padding: 0;
+    outline: none;
+}
+
+/* Full viewport canvas with its content centered. */
+html.centered {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Social icon row: monochrome icons that light up on hover. */
+.social svg {
+    -webkit-transition: fill .2s ease-in;
+    transition: fill .2s ease-in;
+    fill: var(--social-icon, rgba(255, 255, 255, .5));
+}
+.social a:hover svg {
+    fill: var(--social-icon-hover, rgba(255, 255, 255, 1));
+}
