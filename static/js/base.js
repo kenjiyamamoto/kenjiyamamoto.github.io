@@ -5,7 +5,7 @@
 var instafeedConfig = window.INSTAFEED_CONFIG || {};
 var feed = new Instafeed({
     get: 'user',
-    userId: instafeedConfig.userId,
+    userId: '7608',
     sortBy: 'most-liked',
     limit: 10,
     clientId: instafeedConfig.clientId,
