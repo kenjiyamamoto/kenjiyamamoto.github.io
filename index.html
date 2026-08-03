@@ -9,7 +9,12 @@
 <meta property="og:title" content="Kenji Yamamoto — Head of Technology">
 <meta property="og:description" content="AI, Fintech & Platform Engineering. Leading scalable engineering teams, product innovation and technology strategy.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://kenjiyamamoto.com/">
+<meta property="og:url" content="https://www.kenjiyamamoto.com/">
+<meta property="og:image" content="https://www.kenjiyamamoto.com/static/img/perfil.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.kenjiyamamoto.com/static/img/perfil.jpg">
+<link rel="canonical" href="https://www.kenjiyamamoto.com/">
+<link rel="icon" href="/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
@@ -72,6 +77,15 @@
   .btn svg{width:18px; height:18px; fill:currentColor}
   footer{text-align:center; padding:28px 24px; color:var(--muted); font-size:.8rem}
 </style>
+<script>
+  // Set theme before first paint to avoid a flash of the wrong theme.
+  (function(){
+    var stored = localStorage.getItem('theme');
+    var prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+    var theme = stored || (prefersLight ? 'light' : 'dark');
+    if (theme === 'light') document.documentElement.setAttribute('data-theme','light');
+  })();
+</script>
 </head>
 <body>
 
@@ -105,10 +119,19 @@
   document.getElementById('year').textContent = new Date().getFullYear();
   const root = document.documentElement;
   const btn = document.getElementById('themeToggle');
-  const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-  let theme = prefersLight ? 'light' : 'dark';
+  const media = window.matchMedia('(prefers-color-scheme: light)');
+  let theme = localStorage.getItem('theme') || (media.matches ? 'light' : 'dark');
   apply(theme);
-  btn.addEventListener('click', () => { theme = theme === 'dark' ? 'light' : 'dark'; apply(theme); });
+  btn.addEventListener('click', () => {
+    theme = theme === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('theme', theme);
+    apply(theme);
+  });
+  media.addEventListener('change', (e) => {
+    if (localStorage.getItem('theme')) return; // respect explicit user choice
+    theme = e.matches ? 'light' : 'dark';
+    apply(theme);
+  });
   function apply(t){
     if (t === 'light') root.setAttribute('data-theme','light');
     else root.removeAttribute('data-theme');
