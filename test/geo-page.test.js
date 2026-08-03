@@ -18,7 +18,7 @@ describe('geo page', () => {
     const { document } = loadGeo();
 
     expect(findGeoScript(document).src)
-      .toBe(`http://api.globo.com/geo/?callback=${CALLBACK}`);
+      .toBe(`https://api.globo.com/geo/?callback=${CALLBACK}`);
   });
 
   it('exposes the callback on window until it is invoked', () => {

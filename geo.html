@@ -22,7 +22,7 @@
             const city = document.querySelector(".city");
             const ip = document.querySelector(".ip");
 
-            site.jsonp("http://api.globo.com/geo/", "globoapi_geo_callback").then((res) => {
+            site.jsonp("https://api.globo.com/geo/", "globoapi_geo_callback").then((res) => {
                 city.innerHTML = res.city.name;
                 ip.innerHTML = res.ip;
             });

@@ -1,11 +1,15 @@
 // Init Instagram
+// Credentials must NOT be hardcoded here (this file is public). Provide them at
+// runtime, e.g. window.INSTAFEED_CONFIG = { clientId: '...', accessToken: '...' }
+// injected from a non-committed source. See README for setup.
+var instafeedConfig = window.INSTAFEED_CONFIG || {};
 var feed = new Instafeed({
     get: 'user',
     userId: '7608',
     sortBy: 'most-liked',
     limit: 10,
-    clientId: '874257cd75be4d578c56c1ade1330740',
-    accessToken: '7608.874257c.e5761d42f4434531ae0057113d6c41fe'
+    clientId: instafeedConfig.clientId,
+    accessToken: instafeedConfig.accessToken
 });
 
 let instagram = document.getElementById("instagram");
